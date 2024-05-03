@@ -10,8 +10,11 @@ module.exports = {
         'mainWhite': '#ffffff',
         'gray': '#736F6F',
         'secondaryWhite': '#F2F2F2',
-        'deleted': '#EB2727'
+        'delete': '#EB2727'
       },
+      borderRadius:{
+        'radius': '7px',
+      }
     },
   },
   plugins: [],
