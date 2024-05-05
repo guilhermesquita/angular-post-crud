@@ -3,26 +3,10 @@
         <button>
             <img src="/assets/newpostbtn.svg" alt="novo post" class="w-10">
         </button>
-        <span class="text-gray"><strong>novo post</strong></span>
+        <span class="text-gray cursor-pointer"><strong>novo post</strong></span>
     </section>
 
-    <section class="w-full h-full flex justify-center">
-        <section class="flex flex-col w-3/5">
-            <span class="text-gray w-full flex 
-            justify-end pr-2">
-                editar post
-            </span>
-            <article class="flex flex-col gap-8">
-                <h2 class="text-mainWhite text-4xl">
-                    <strong>sunt aut facere repellat provident occaecati excepturi optio reprehenderit</strong>
-                </h2>
-                <p class="text-secondaryWhite">quia et suscipit\nsuscipit recusandae consequuntur expedita et cim\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto</p>
-            </article>
-            <article>
-                <button class="text-mainWhite mt-3 bg-delete 
-                w-44 h-10 rounded-radius 
-                shadow-lg">excluir post</button>
-            </article>
-        </section>
+    <section class="w-full flex">
+        <app-post-list></app-post-list>
     </section>
 </main>

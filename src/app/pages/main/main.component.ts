@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { PostListComponent } from '../../components/post-list/post-list.component';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [],
+  imports: [PostListComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'
 })
