@@ -16,7 +16,6 @@ import { ModalService } from '../../service/modal-service/modal.service';
 
 export class MainComponent {
   constructor(private postService: PostService, public modalService: ModalService) { }
-  overlay: boolean = true;
   posts: Post[] = [];
 
   OpenModalToCreate() {
@@ -51,10 +50,5 @@ export class MainComponent {
         console.error('Erro ao chamar a API:', error);
       }
     )
-  }
-
-  addPost(post: Post) {
-    this.posts.push(post);
-    localStorage.setItem('posts', JSON.stringify(this.posts));
   }
 }

@@ -9,7 +9,12 @@
             <input placeholder="descrição" class="outline-none border-b-2 border-secondaryWhite bg-transparent text-mainWhite">
         </form>
         <article class="flex w-full justify-center gap-10">
-            <app-button-confirm></app-button-confirm>
+            <app-button-confirm (click)="addPost({
+                title: 'foo',
+                id: 101,
+                body: 'bar',
+                userId: 1,
+              })"></app-button-confirm>
             <app-button-main btn_content="cancelar" (click)="closeModal()"></app-button-main>
         </article>
     </article>
