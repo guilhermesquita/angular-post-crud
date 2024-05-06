@@ -7,19 +7,8 @@
     </section>
 
     <section class="w-full flex flex-col gap-20 pb-20" *ngFor='let post of this.posts'>
-        <!-- <app-post-list title="{{posts[0]?.title}}" description="quia et suscipit\nsuscipit recusandae consequuntur expedita et
-        cim\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet
-        architecto" btn_content="excluir post"></app-post-list> -->
         <app-post-list title="{{post.title}}" description="quia et suscipit\nsuscipit recusandae consequuntur expedita et
         cim\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet
-        architecto" btn_content="excluir post"></app-post-list>
-        <!-- <app-post-list title="{{posts[0]?.title}}" description="quia et suscipit\nsuscipit recusandae consequuntur expedita et
-        cim\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet
-        architecto" btn_content="excluir post"></app-post-list> -->
+        architecto"></app-post-list>
     </section>
-    <!-- <section *ngFor='let post of this.posts'>
-        <app-post-list title="{{post.title}}" description="quia et suscipit\nsuscipit recusandae consequuntur expedita et
-        cim\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet
-        architecto" btn_content="excluir post"></app-post-list>
-    </section> -->
 </main>
