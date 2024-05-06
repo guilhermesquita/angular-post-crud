@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ButtonMainComponent } from '../button-main/button-main.component';
-import { ModalService } from '../../service/model-service/modal.service';
+import { ModalService } from '../../service/modal-service/modal.service';
 
 @Component({
   selector: 'app-post-list',

@@ -4,7 +4,7 @@ import { Post } from '../../service/Post';
 import { PostService } from '../../service/post.service';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../../components/modal/modal.component';
-import { ModalService } from '../../service/model-service/modal.service';
+import { ModalService } from '../../service/modal-service/modal.service';
 
 @Component({
   selector: 'app-main',

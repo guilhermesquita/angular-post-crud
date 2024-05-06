@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ButtonMainComponent } from '../button-main/button-main.component';
 import { ButtonConfirmComponent } from '../button-confirm/button-confirm.component';
-import { ModalService } from '../../service/model-service/modal.service';
+import { ModalService } from '../../service/modal-service/modal.service';
 
 @Component({
   selector: 'app-modal',
