@@ -12,4 +12,8 @@ import { ButtonConfirmComponent } from '../button-confirm/button-confirm.compone
 })
 export class ModalComponent {
   mostrar: boolean = true;
+
+  toggle() {
+    this.mostrar = !this.mostrar;
+  }
 }
