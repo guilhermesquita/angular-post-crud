@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ButtonMainComponent } from '../button-main/button-main.component';
 import { ButtonConfirmComponent } from '../button-confirm/button-confirm.component';
+import { ModalService } from '../../service/modal-service/modal.service';
 
 @Component({
   selector: 'app-modal',
@@ -11,9 +12,13 @@ import { ButtonConfirmComponent } from '../button-confirm/button-confirm.compone
   styleUrl: './modal.component.css'
 })
 export class ModalComponent {
-  mostrar: boolean = true;
+  constructor(public modalService: ModalService) { }
 
-  toggle() {
-    this.mostrar = !this.mostrar;
+  openModal() {
+    this.modalService.openModal();
+  }
+
+  closeModal() {
+    this.modalService.closeModal();
   }
 }
