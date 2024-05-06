@@ -3,17 +3,19 @@ import { PostListComponent } from '../../components/post-list/post-list.componen
 import { Post } from '../../service/Post';
 import { PostService } from '../../service/post.service';
 import { CommonModule } from '@angular/common';
+import { ModalComponent } from '../../components/modal/modal.component';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [PostListComponent, CommonModule],
+  imports: [PostListComponent, CommonModule, ModalComponent, MainComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'
 })
 
 export class MainComponent {
   constructor(private postService: PostService) { }
+  overlay: boolean = true;
   posts: Post[] = [];
 
   ngOnInit(): void {
