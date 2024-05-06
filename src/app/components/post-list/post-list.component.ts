@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-post-list',
@@ -7,6 +7,9 @@ import { Component } from '@angular/core';
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.css'
 })
-export class PostListComponent {
 
+export class PostListComponent {
+  @Input() title: string = "";
+  @Input() description: string = "";
+  @Input() btn_content: string = "";
 }
