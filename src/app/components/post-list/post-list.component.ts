@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ButtonMainComponent } from '../button-main/button-main.component';
-import { ModalService } from '../../service/modal-service/modal.service';
+import { ModalService } from '../../service/model-service/modal.service';
 
 @Component({
   selector: 'app-post-list',
@@ -18,7 +18,8 @@ export class PostListComponent {
   @Input() btn_content: string = "";
 
 
-  abrirModal() {
+  OpenModalToEdit() {
     this.modalService.openModal();
+    this.modalService.modalTitle = 'editar post';
   }
 }

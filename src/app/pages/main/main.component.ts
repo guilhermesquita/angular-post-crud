@@ -4,6 +4,7 @@ import { Post } from '../../service/Post';
 import { PostService } from '../../service/post.service';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../../components/modal/modal.component';
+import { ModalService } from '../../service/model-service/modal.service';
 
 @Component({
   selector: 'app-main',
@@ -14,9 +15,14 @@ import { ModalComponent } from '../../components/modal/modal.component';
 })
 
 export class MainComponent {
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService, public modalService: ModalService) { }
   overlay: boolean = true;
   posts: Post[] = [];
+
+  OpenModalToCreate() {
+    this.modalService.openModal();
+    this.modalService.modalTitle = 'novo post';
+  }
 
   ngOnInit(): void {
     let linked: boolean =  false
