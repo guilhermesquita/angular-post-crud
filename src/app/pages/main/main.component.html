@@ -7,8 +7,6 @@
     </section>
 
     <section class="w-full flex flex-col gap-20 pb-20" *ngFor='let post of this.posts'>
-        <app-post-list title="{{post.title}}" description="quia et suscipit\nsuscipit recusandae consequuntur expedita et
-        cim\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet
-        architecto"></app-post-list>
+        <app-post-list title="{{post.title}}" description="{{post.body}}"></app-post-list>
     </section>
 </main>

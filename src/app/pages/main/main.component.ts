@@ -17,18 +17,36 @@ export class MainComponent {
   posts: Post[] = [];
 
   ngOnInit(): void {
-    this.chamarAPI();
+    let linked: boolean =  false
+    let localPosts: string | null
+
+    localStorage.getItem('posts') ? linked = true : linked = false
+    Array.isArray(localStorage.getItem('posts')) ? linked = true : linked = false
+    if(linked){
+      localPosts = localStorage.getItem('posts');
+      if (localPosts) {
+        this.posts = JSON.parse(localPosts);
+      } 
+    }
+    else {
+      this.chamarAPI();
+    }
   }
 
   chamarAPI() {
     this.postService.getPosts().subscribe(
       (response: Post[]) => {
         this.posts = response;
-        console.log(response[0]);
+        console.log(response[100]);
       },
       error => {
         console.error('Erro ao chamar a API:', error);
       }
     )
+  }
+
+  addPost(post: Post) {
+    this.posts.push(post);
+    localStorage.setItem('posts', JSON.stringify(this.posts));
   }
 }
