@@ -15,6 +15,7 @@ import { PostService } from '../../service/post-service/post.service';
 })
 export class ModalComponent {
   constructor(public modalService: ModalService, public postService: PostService) { }
+
   posts: Post[] = [];
 
   openModal() {
@@ -27,51 +28,51 @@ export class ModalComponent {
 
   foundMethod(post: Post) {
     if (this.postService.method === 'POST') {
-      let localPosts = new Array<Post>();
-      const storedPosts = localStorage.getItem('posts');
+      this.createOrUpdatePost(post, true);
+    } else if (this.postService.method === 'PUT') {
+      this.createOrUpdatePost(post, false);
+    }
+  }
 
-      if (storedPosts !== null) {
-        localPosts = JSON.parse(storedPosts);
-        localPosts.push({
+  private createOrUpdatePost(post: Post, isNew: boolean) {
+    const storedPosts = localStorage.getItem('posts');
+    if (storedPosts) {
+      const localPosts: Post[] = JSON.parse(storedPosts);
+      const id = this.postService.id_post;
+      const existingPostIndex = localPosts.findIndex(item => item.id === Number(id));
+
+      if (existingPostIndex !== -1) {
+        localPosts[existingPostIndex] = {
+          id: localPosts[existingPostIndex].id,
+          title: post.title || localPosts[existingPostIndex].title,
+          body: post.body || localPosts[existingPostIndex].body
+        };
+
+        localStorage.setItem('posts', JSON.stringify(localPosts));
+      } else {
+        if (isNew) {
+          localPosts.push({
+            title: post.title,
+            id: localPosts.length + 1,
+            body: post.body,
+            userId: 101,
+          });
+          localStorage.setItem('posts', JSON.stringify(localPosts));
+        }
+      }
+    } else {
+      if (isNew) {
+        localStorage.setItem('posts', JSON.stringify([{
           title: post.title,
-          id: localPosts.length + 1,
+          id: 1,
           body: post.body,
           userId: 101,
-        });
-        localStorage.setItem('posts', JSON.stringify(localPosts));
-        window.location.reload();
-      } else {
-        this.postService.createPost(post)
+        }]));
       }
-      this.modalService.closeModal();
     }
-    if (this.postService.method === 'PUT') {
-      let localPosts = new Array<Post>();
-      const storedPosts = localStorage.getItem('posts');
-
-      if (storedPosts) {
-        const id = this.postService.id_post
-        localPosts = JSON.parse(storedPosts);
-        const itemIndex = localPosts.findIndex(function (item) {
-          return item.id === Number(id)
-        });
-
-        if (itemIndex !== -1) {
-          localPosts[itemIndex] = {
-            id: localPosts[itemIndex].id,
-            title: post.title || localPosts[itemIndex].title,
-            body: post.body || localPosts[itemIndex].body
-          }
-
-          localStorage.setItem('posts', JSON.stringify(localPosts));
-          this.postService.id_post = '';
-          window.location.reload();
-        }
-      }else {
-        this.postService.updatePost(post)
-      }
-      this.modalService.closeModal();
-    }
-
-  };
+    this.postService.method === 'POST' ? this.postService.createPost(post) : this.postService.updatePost(post);
+    this.postService.id_post = '';
+    this.modalService.closeModal();
+    window.location.reload();
+  }
 }

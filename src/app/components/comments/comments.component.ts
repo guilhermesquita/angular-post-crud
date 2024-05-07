@@ -26,20 +26,32 @@ export class CommentsComponent {
     this.postService.id_post = this.id_post;
     this.commentService.id_comment = this.id_comment;
     this.commentService.method = 'PUT';
-    this.modalCommentService.openModal()
+    this.modalCommentService.openModal();
   }
 
   deleteComment(){
-    let localComments = new Array<Comment>();
+    if (confirm('Tem certeza que deseja excluir este comentário?')) {
+      if (this.deleteLocalComment()) {
+        window.location.reload();
+      } else {
+        this.commentService.deleteComment(Number(this.id_comment))
+          .subscribe(() => {
+          }, error => {
+            console.error('Erro ao excluir comentário:', error);
+          });
+      }
+    }
+  }
+
+  private deleteLocalComment(): boolean {
     const storedComments = localStorage.getItem('comments');
     if (storedComments) {
-      const id = this.id_comment
-      localComments = JSON.parse(storedComments);
-      const filtered = localComments.filter(item => item.idComment !== Number(id));
-      localStorage.setItem('comments', JSON.stringify(filtered));
-      window.location.reload();
-    } else {
-      this.commentService.deleteComment(Number(this.id_comment));
+      const id = Number(this.id_comment);
+      let localComments: Comment[] = JSON.parse(storedComments);
+      localComments = localComments.filter(item => item.idComment !== id);
+      localStorage.setItem('comments', JSON.stringify(localComments));
+      return true;
     }
+    return false;
   }
 }
