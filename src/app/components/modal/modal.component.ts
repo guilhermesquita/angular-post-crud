@@ -67,8 +67,10 @@ export class ModalComponent {
           this.postService.id_post = '';
           window.location.reload();
         }
+      }else {
+        this.postService.updatePost(post)
       }
-
+      this.modalService.closeModal();
     }
 
   };
