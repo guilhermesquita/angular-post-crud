@@ -15,11 +15,11 @@
         <article>
             <app-button-main btn_content="excluir post" color_btn="#C21414" (click)="deletePost()"></app-button-main>
         </article>
-        <section class="border-2 border-[#959090] mt-5 p-5">
-            <article class="flex gap-1 text-base">
-                <button class="text-secondaryWhite">adicione um <strong>comentário</strong></button>
-            </article>
-            <app-comments></app-comments>
+        <article class="flex gap-1 text-base mt-5">
+            <button class="text-secondaryWhite">adicione um <strong>comentário</strong></button>
+        </article>
+        <section class="border-2 border-[#959090] mt-5 p-5" *ngFor='let comment of this.comments'>
+            <app-comments id_user="{{comment.idUser}}" content="{{comment.content}}"></app-comments>
         </section>
     </section>
 </section>

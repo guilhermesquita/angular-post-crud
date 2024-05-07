@@ -5,6 +5,12 @@
             "content": "lorem ipsum dolor sit amet, consectetur adipis",
             "idUser": 101,
             "idPost": 4
+        },
+        {
+            "id": 1,
+            "content": "lorem ipsum dolor sit ameteeeeerrerer",
+            "idUser": 101,
+            "idPost": 1
         }
     ]
 }

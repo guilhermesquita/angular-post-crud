@@ -5,7 +5,6 @@ import { PostService } from '../../service/post-service/post.service';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { ModalService } from '../../service/modal-service/modal.service';
-import { CommentService } from '../../service/comment-service/comments.service';
 
 @Component({
   selector: 'app-main',
@@ -18,7 +17,6 @@ import { CommentService } from '../../service/comment-service/comments.service';
 export class MainComponent {
   constructor(private postService: PostService, 
     public modalService: ModalService,
-    private commentService: CommentService
   ) { }
   posts: Post[] = [];
   comments: Comment[] = [];
@@ -32,8 +30,6 @@ export class MainComponent {
   ngOnInit(): void {
     let linked: boolean =  false
     let localPosts: string | null
-
-    this.commentApi();
 
     localStorage.getItem('posts') ? linked = true : linked = false
     Array.isArray(localStorage.getItem('posts')) ? linked = true : linked = false
@@ -52,18 +48,6 @@ export class MainComponent {
     this.postService.getPosts().subscribe(
       (response: Post[]) => {
         this.posts = response;
-      },
-      error => {
-        console.error('Erro ao chamar a API:', error);
-      }
-    )
-  }
-
-  commentApi() {
-    this.commentService.getComments().subscribe(
-      (response: Comment[]) => {
-        console.log(response)
-        this.comments = response;
       },
       error => {
         console.error('Erro ao chamar a API:', error);
