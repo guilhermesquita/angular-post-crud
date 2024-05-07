@@ -2,6 +2,7 @@
     "comments": [
         {
             "idComment": 1,
+            "id": 1,
             "content": "lorem ipsum dolor sit amet, consectetur adipis",
             "idUser": 101,
             "idPost": 4

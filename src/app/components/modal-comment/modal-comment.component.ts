@@ -6,6 +6,7 @@ import { ModalCommentService } from '../../service/modal-comment-service/modal-c
 import { CommentService } from '../../service/comment-service/comments.service';
 import { Comment } from '../../models/Comment';
 import { PostService } from '../../service/post-service/post.service';
+import { LocalStorageService } from '../../service/increment-id/id-service.service';
 
 @Component({
   selector: 'app-modal-comment',
@@ -16,10 +17,13 @@ import { PostService } from '../../service/post-service/post.service';
 })
 export class ModalCommentComponent {
   @Input() titleModal: string = ''
+  nextId: number | undefined;
   constructor(
     public modalCommentService: ModalCommentService,
     public postService: PostService,
-    private commentService: CommentService) { }
+    private commentService: CommentService,
+    private localStorageService: LocalStorageService
+  ) { }
 
   openCommentModal() {
     this.modalCommentService.openModal();
@@ -29,19 +33,32 @@ export class ModalCommentComponent {
     this.modalCommentService.closeModal();
   }
 
-
   foundMethod(content: string) {
+
+    const lastId = this.localStorageService.getUniqueId();
+    this.nextId = lastId + 1;
+    this.localStorageService.saveUniqueId(this.nextId);
+
     if (this.commentService.method === 'POST') {
       let localComments = new Array<Comment>();
       const storedComments = localStorage.getItem('comments');
 
+      const id_comment = localStorage.getItem('id');
+      let idRecuperado
+      if (id_comment) {
+        idRecuperado = parseInt(id_comment, 10)
+      }
+      if (idRecuperado) {
+        idRecuperado = idRecuperado + 1
+        localStorage.setItem('id', idRecuperado.toString())
+      }
+
       if (storedComments !== null) {
-        // alert(this.postService.id_post)
+
         localComments = JSON.parse(storedComments);
-        // console.log(localComments);
         localComments.push({
           content: content,
-          idComment: localComments.length + 1,
+          idComment: this.nextId,
           idPost: Number(this.postService.id_post),
           idUser: 101
         });

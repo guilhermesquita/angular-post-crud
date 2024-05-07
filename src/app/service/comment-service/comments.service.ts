@@ -12,7 +12,8 @@ export class CommentService {
 
   id_post = ''
   id_comment = ''
-
+  id = 1
+      
   private localStorageKey = 'comments';
   private apiUrl = 'http://localhost:3000/comments';
 

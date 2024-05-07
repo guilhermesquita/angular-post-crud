@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommentService } from '../../service/comment-service/comments.service';
 import { ModalCommentService } from '../../service/modal-comment-service/modal-comment.service';
 import { PostService } from '../../service/post-service/post.service';
+import { Comment } from '../../models/Comment';
 
 @Component({
   selector: 'app-comments',
@@ -26,5 +27,19 @@ export class CommentsComponent {
     this.commentService.id_comment = this.id_comment;
     this.commentService.method = 'PUT';
     this.modalCommentService.openModal()
+  }
+
+  deleteComment(){
+    let localComments = new Array<Comment>();
+    const storedComments = localStorage.getItem('comments');
+    if (storedComments) {
+      const id = this.id_comment
+      localComments = JSON.parse(storedComments);
+      const filtered = localComments.filter(item => item.idComment !== Number(id));
+      localStorage.setItem('comments', JSON.stringify(filtered));
+      window.location.reload();
+    } else {
+      this.postService.deletePost(Number(this.id_post));
+    }
   }
 }

@@ -8,6 +8,7 @@ import { CommentService } from '../../service/comment-service/comments.service';
 import { CommonModule } from '@angular/common';
 import { Comment } from '../../models/Comment';
 import { ModalCommentService } from '../../service/modal-comment-service/modal-comment.service';
+import { LocalStorageService } from '../../service/increment-id/id-service.service';
 
 @Component({
   selector: 'app-post-list',
@@ -28,6 +29,7 @@ export class PostListComponent {
   @Input() description: string = "";
   @Input() btn_content: string = "";
   @Input() id_post: string = "";
+  nextId: number | undefined;
   comments: Comment[] = [];
 
   ngOnInit(): void {
