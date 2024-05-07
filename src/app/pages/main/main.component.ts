@@ -4,6 +4,7 @@ import { Post } from '../../service/Post';
 import { PostService } from '../../service/post.service';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../../components/modal/modal.component';
+import { ModalService } from '../../service/modal-service/modal.service';
 
 @Component({
   selector: 'app-main',
@@ -14,9 +15,14 @@ import { ModalComponent } from '../../components/modal/modal.component';
 })
 
 export class MainComponent {
-  constructor(private postService: PostService) { }
-  overlay: boolean = true;
+  constructor(private postService: PostService, public modalService: ModalService) { }
   posts: Post[] = [];
+
+  OpenModalToCreate() {
+    this.modalService.openModal();
+    this.modalService.modalTitle = 'novo post';
+    this.postService.method = 'POST';
+  }
 
   ngOnInit(): void {
     let linked: boolean =  false
@@ -39,16 +45,10 @@ export class MainComponent {
     this.postService.getPosts().subscribe(
       (response: Post[]) => {
         this.posts = response;
-        console.log(response[100]);
       },
       error => {
         console.error('Erro ao chamar a API:', error);
       }
     )
-  }
-
-  addPost(post: Post) {
-    this.posts.push(post);
-    localStorage.setItem('posts', JSON.stringify(this.posts));
   }
 }

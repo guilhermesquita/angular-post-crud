@@ -1,16 +1,19 @@
 <div class="bg-[#383737] fixed p-2 h-3/6 left-2/4 w-6/12 top-0 translate-x-[-50%] 
 -translate-y-[-50%] shadow-md rounded-2xl p-5"
-    *ngIf="mostrar">
+    *ngIf="modalService.modalOpen">
     <article class="flex flex-col gap-10">
-        <h2 class="text-grayText text-3xl">editar post</h2>
+        <h2 class="text-grayText text-3xl">{{modalService.modalTitle}}</h2>
         <form action="" class="flex flex-col gap-10">
-            <input placeholder="título" class="outline-none border-b-2 border-secondaryWhite bg-transparent
+            <input #titleInput placeholder="título" class="outline-none border-b-2 border-secondaryWhite bg-transparent
             text-mainWhite">
-            <input placeholder="descrição" class="outline-none border-b-2 border-secondaryWhite bg-transparent text-mainWhite">
+            <input #descriptionInput placeholder="descrição" class="outline-none border-b-2 border-secondaryWhite bg-transparent text-mainWhite">
         </form>
         <article class="flex w-full justify-center gap-10">
-            <app-button-confirm></app-button-confirm>
-            <app-button-main btn_content="cancelar" (click)="toggle()"></app-button-main>
+            <app-button-confirm (click)="foundMethod({
+                title: titleInput.value,
+                body: descriptionInput.value,
+              })"></app-button-confirm>
+            <app-button-main btn_content="cancelar" (click)="closeModal()"></app-button-main>
         </article>
     </article>
 </div>

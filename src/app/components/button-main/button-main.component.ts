@@ -10,5 +10,4 @@ import { Component, Input } from '@angular/core';
 })
 export class ButtonMainComponent {
   @Input() btn_content: string = '';
-  color_hover_btn: string = '#C21414';
 }

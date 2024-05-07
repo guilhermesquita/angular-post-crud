@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import axios from 'axios';
 import { Observable } from 'rxjs';
 import { Post } from './Post';
@@ -8,7 +8,10 @@ import { Post } from './Post';
 })
 export class PostService {
   private localStorageKey = 'posts';
-  private apiUrl = 'https://jsonplaceholder.typicode.com/posts';
+  apiUrl = 'https://jsonplaceholder.typicode.com/posts';
+  @Input() method: string = '';
+
+  id_post: string = '';
 
   constructor() { }
 
@@ -52,6 +55,64 @@ export class PostService {
         axios.post<Post>(this.apiUrl, newPost)
          .then(response => {
             observer.next(response.data);
+            observer.complete();
+          })
+         .catch(error => {
+            observer.error(error);
+          });
+      });
+    }
+  }
+
+  updatePost(updatedPost: Post): Observable<Post> {
+    const localPosts = localStorage.getItem(this.localStorageKey);
+    if (localPosts) {
+      return new Observable(observer => {
+        let posts: Post[] = JSON.parse(localStorage.getItem(this.localStorageKey) || '[]');
+        const index = posts.findIndex(post => post.id === updatedPost.id);
+        if (index !== -1) {
+          posts[index] = updatedPost;
+          localStorage.setItem(this.localStorageKey, JSON.stringify(posts));
+          observer.next(updatedPost);
+        } else {
+          observer.error('Post not found in local storage');
+        }
+        observer.complete();
+      });
+    } else {
+      return new Observable(observer => {
+        axios.put<Post>(`${this.apiUrl}/${updatedPost.id}`, updatedPost)
+         .then(response => {
+            observer.next(response.data);
+            observer.complete();
+          })
+         .catch(error => {
+            observer.error(error);
+          });
+      });
+    }
+  }
+
+  deletePost(postId: number): Observable<void> {
+    const localPosts = localStorage.getItem(this.localStorageKey);
+    if (localPosts) {
+      return new Observable(observer => {
+        let posts: Post[] = JSON.parse(localStorage.getItem(this.localStorageKey) || '[]');
+        const index = posts.findIndex(post => post.id === postId);
+        if (index !== -1) {
+          posts.splice(index, 1);
+          localStorage.setItem(this.localStorageKey, JSON.stringify(posts));
+          observer.next();
+        } else {
+          observer.error('Post not found in local storage');
+        }
+        observer.complete();
+      });
+    } else {
+      return new Observable(observer => {
+        axios.delete<void>(`${this.apiUrl}/${postId}`)
+         .then(() => {
+            observer.next();
             observer.complete();
           })
          .catch(error => {
