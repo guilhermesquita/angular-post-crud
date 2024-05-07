@@ -48,6 +48,8 @@ export class ModalComponent {
           body: post.body || localPosts[existingPostIndex].body
         };
 
+        this.postService.method === 'POST' ? alert('post criado!') : alert('post atualizado!');
+
         localStorage.setItem('posts', JSON.stringify(localPosts));
       } else {
         if (isNew) {
