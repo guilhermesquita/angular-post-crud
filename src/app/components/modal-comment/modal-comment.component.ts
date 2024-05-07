@@ -54,7 +54,6 @@ export class ModalCommentComponent {
       }
 
       if (storedComments !== null) {
-
         localComments = JSON.parse(storedComments);
         localComments.push({
           content: content,
@@ -62,8 +61,11 @@ export class ModalCommentComponent {
           idPost: Number(this.postService.id_post),
           idUser: 101
         });
+
         localStorage.setItem('comments', JSON.stringify(localComments));
         window.location.reload();
+      }else{
+        this.commentService.createComment(content)
       }
     }
     if (this.commentService.method === 'PUT') {
@@ -87,6 +89,8 @@ export class ModalCommentComponent {
           localStorage.setItem('comments', JSON.stringify(localComments));
           this.postService.id_post = '';
           window.location.reload();
+        }else{
+          this.commentService.updateComment(this.nextId, content)
         }
       }
     }

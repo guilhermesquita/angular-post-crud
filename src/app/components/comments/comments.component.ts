@@ -39,7 +39,7 @@ export class CommentsComponent {
       localStorage.setItem('comments', JSON.stringify(filtered));
       window.location.reload();
     } else {
-      this.postService.deletePost(Number(this.id_post));
+      this.commentService.deleteComment(Number(this.id_comment));
     }
   }
 }
