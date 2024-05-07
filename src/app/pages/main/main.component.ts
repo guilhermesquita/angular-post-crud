@@ -21,6 +21,7 @@ export class MainComponent {
   OpenModalToCreate() {
     this.modalService.openModal();
     this.modalService.modalTitle = 'novo post';
+    this.postService.method = 'POST';
   }
 
   ngOnInit(): void {
@@ -44,7 +45,6 @@ export class MainComponent {
     this.postService.getPosts().subscribe(
       (response: Post[]) => {
         this.posts = response;
-        console.log(response[100]);
       },
       error => {
         console.error('Erro ao chamar a API:', error);

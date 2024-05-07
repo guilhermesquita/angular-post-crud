@@ -9,7 +9,7 @@
             <input #descriptionInput placeholder="descrição" class="outline-none border-b-2 border-secondaryWhite bg-transparent text-mainWhite">
         </form>
         <article class="flex w-full justify-center gap-10">
-            <app-button-confirm (click)="addPost({
+            <app-button-confirm (click)="foundMethod({
                 title: titleInput.value,
                 body: descriptionInput.value,
               })"></app-button-confirm>

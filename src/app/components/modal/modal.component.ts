@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ButtonMainComponent } from '../button-main/button-main.component';
 import { ButtonConfirmComponent } from '../button-confirm/button-confirm.component';
 import { ModalService } from '../../service/modal-service/modal.service';
 import { Post } from '../../service/Post';
 import { PostService } from '../../service/post.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-modal',
@@ -15,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrl: './modal.component.css'
 })
 export class ModalComponent {
-  constructor(public modalService: ModalService, public postService: PostService, private router: Router) { }
+  constructor(public modalService: ModalService, public postService: PostService) { }
   posts: Post[] = [];
 
   openModal() {
@@ -26,11 +25,12 @@ export class ModalComponent {
     this.modalService.closeModal();
   }
 
-  addPost(post: Post) {
-    let localPosts = new Array<Post>();
-    const storedPosts = localStorage.getItem('posts');
+  foundMethod(post: Post) {
+    if (this.postService.method === 'POST') {
+      let localPosts = new Array<Post>();
+      const storedPosts = localStorage.getItem('posts');
 
-    if (storedPosts !== null) {
+      if (storedPosts !== null) {
         localPosts = JSON.parse(storedPosts);
         localPosts.push({
           title: post.title,
@@ -40,10 +40,36 @@ export class ModalComponent {
         });
         localStorage.setItem('posts', JSON.stringify(localPosts));
         window.location.reload();
-    }else{
-      this.postService.createPost(post)
+      } else {
+        this.postService.createPost(post)
+      }
+      this.modalService.closeModal();
     }
-    this.modalService.closeModal();
+    if (this.postService.method === 'PUT') {
+      let localPosts = new Array<Post>();
+      const storedPosts = localStorage.getItem('posts');
+
+      if (storedPosts) {
+        const id = this.postService.id_post
+        localPosts = JSON.parse(storedPosts);
+        var itemIndex = localPosts.findIndex(function (item) {
+          return item.id === Number(id)
+        });
+
+        if (itemIndex !== -1) {
+          localPosts[itemIndex] = {
+            id: localPosts[itemIndex].id,
+            title: post.title || localPosts[itemIndex].title,
+            body: post.body || localPosts[itemIndex].body
+          }
+
+          localStorage.setItem('posts', JSON.stringify(localPosts));
+          this.postService.id_post = '';
+          window.location.reload();
+        }
+      }
+
     }
-  }
-// }
+
+  };
+}
