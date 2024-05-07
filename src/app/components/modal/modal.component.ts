@@ -5,6 +5,7 @@ import { ButtonConfirmComponent } from '../button-confirm/button-confirm.compone
 import { ModalService } from '../../service/modal-service/modal.service';
 import { Post } from '../../service/Post';
 import { PostService } from '../../service/post.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-modal',
@@ -14,7 +15,7 @@ import { PostService } from '../../service/post.service';
   styleUrl: './modal.component.css'
 })
 export class ModalComponent {
-  constructor(public modalService: ModalService, public postService: PostService) { }
+  constructor(public modalService: ModalService, public postService: PostService, private router: Router) { }
   posts: Post[] = [];
 
   openModal() {
@@ -27,7 +28,6 @@ export class ModalComponent {
 
   addPost(post: Post) {
     let localPosts = new Array<Post>();
-
     const storedPosts = localStorage.getItem('posts');
 
     if (storedPosts !== null) {
@@ -39,12 +39,11 @@ export class ModalComponent {
           userId: 101,
         });
         localStorage.setItem('posts', JSON.stringify(localPosts));
+        window.location.reload();
     }else{
       this.postService.createPost(post)
     }
     this.modalService.closeModal();
-      // let posts = [localPosts]
-      // console.log(posts);
     }
   }
 // }

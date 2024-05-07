@@ -4,16 +4,14 @@
     <article class="flex flex-col gap-10">
         <h2 class="text-grayText text-3xl">{{modalService.modalTitle}}</h2>
         <form action="" class="flex flex-col gap-10">
-            <input placeholder="título" class="outline-none border-b-2 border-secondaryWhite bg-transparent
+            <input #titleInput placeholder="título" class="outline-none border-b-2 border-secondaryWhite bg-transparent
             text-mainWhite">
-            <input placeholder="descrição" class="outline-none border-b-2 border-secondaryWhite bg-transparent text-mainWhite">
+            <input #descriptionInput placeholder="descrição" class="outline-none border-b-2 border-secondaryWhite bg-transparent text-mainWhite">
         </form>
         <article class="flex w-full justify-center gap-10">
             <app-button-confirm (click)="addPost({
-                title: 'foo',
-                id: 101,
-                body: 'bar',
-                userId: 1,
+                title: titleInput.value,
+                body: descriptionInput.value,
               })"></app-button-confirm>
             <app-button-main btn_content="cancelar" (click)="closeModal()"></app-button-main>
         </article>
