@@ -3,11 +3,12 @@ import { ButtonMainComponent } from '../button-main/button-main.component';
 import { ModalService } from '../../service/modal-service/modal.service';
 import { PostService } from '../../service/post.service';
 import { Post } from '../../service/Post';
+import { CommentsComponent } from '../comments/comments.component';
 
 @Component({
   selector: 'app-post-list',
   standalone: true,
-  imports: [ButtonMainComponent],
+  imports: [ButtonMainComponent, CommentsComponent],
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.css'
 })

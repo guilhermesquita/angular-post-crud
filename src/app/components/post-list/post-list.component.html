@@ -2,8 +2,7 @@
     <section class="w-3/4 flex-col">
         <article class="w-full flex justify-end">
             <button class="text-gray 
-            pr-2 cursor-pointer transiton duration-150 hover:text-[#383737]" 
-            (click)="OpenModalToEdit()">
+            pr-2 cursor-pointer transiton duration-150 hover:text-[#383737]" (click)="OpenModalToEdit()">
                 editar post
             </button>
         </article>
@@ -16,5 +15,11 @@
         <article>
             <app-button-main btn_content="excluir post" color_btn="#C21414" (click)="deletePost()"></app-button-main>
         </article>
+        <section class="border-2 border-[#959090] mt-5 p-5">
+            <article class="flex gap-1 text-base">
+                <button class="text-secondaryWhite">adicione um <strong>comentário</strong></button>
+            </article>
+            <app-comments></app-comments>
+        </section>
     </section>
 </section>
