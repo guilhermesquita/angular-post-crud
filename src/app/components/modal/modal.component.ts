@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { ButtonMainComponent } from '../button-main/button-main.component';
 import { ButtonConfirmComponent } from '../button-confirm/button-confirm.component';
 import { ModalService } from '../../service/modal-service/modal.service';
-import { Post } from '../../service/Post';
-import { PostService } from '../../service/post.service';
+import { Post } from '../../models/Post';
+import { PostService } from '../../service/post-service/post.service';
 
 @Component({
   selector: 'app-modal',

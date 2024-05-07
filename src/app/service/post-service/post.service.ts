@@ -1,7 +1,7 @@
 import { Injectable, Input } from '@angular/core';
 import axios from 'axios';
 import { Observable } from 'rxjs';
-import { Post } from './Post';
+import { Post } from '../../models/Post';
 
 @Injectable({
   providedIn: 'root'
@@ -15,29 +15,29 @@ export class PostService {
 
   constructor() { }
 
-  getPosts(): Observable<Post[]> {
-    const localPosts = localStorage.getItem(this.localStorageKey);
-    if (localPosts) {
-      const posts = JSON.parse(localPosts);
-      return new Observable(observer => {
-        observer.next(posts);
-        observer.complete();
-      });
-    } else {
-      return new Observable(observer => {
-        axios.get<Post[]>(this.apiUrl)
-          .then(response => {
-            const posts = response.data;
-            localStorage.setItem(this.localStorageKey, JSON.stringify(posts));
-            observer.next(posts);
-            observer.complete();
-          })
-          .catch(error => {
-            observer.error(error);
-          });
-      });
+    getPosts(): Observable<Post[]> {
+      const localPosts = localStorage.getItem(this.localStorageKey);
+      if (localPosts) {
+        const posts = JSON.parse(localPosts);
+        return new Observable(observer => {
+          observer.next(posts);
+          observer.complete();
+        });
+      } else {
+        return new Observable(observer => {
+          axios.get<Post[]>(this.apiUrl)
+            .then(response => {
+              const posts = response.data;
+              localStorage.setItem(this.localStorageKey, JSON.stringify(posts));
+              observer.next(posts);
+              observer.complete();
+            })
+            .catch(error => {
+              observer.error(error);
+            });
+        });
+      }
     }
-  }
 
   createPost(newPost: Post): Observable<Post> {
     const localPosts = localStorage.getItem(this.localStorageKey);
