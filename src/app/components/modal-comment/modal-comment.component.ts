@@ -17,36 +17,60 @@ import { PostService } from '../../service/post-service/post.service';
 export class ModalCommentComponent {
   @Input() titleModal: string = ''
   constructor(
-    public modalCommentService: ModalCommentService, 
+    public modalCommentService: ModalCommentService,
     public postService: PostService,
-    private commentService: CommentService){}
+    private commentService: CommentService) { }
 
-  openCommentModal(){
+  openCommentModal() {
     this.modalCommentService.openModal();
   }
 
-  closeCommentModal(){
+  closeCommentModal() {
     this.modalCommentService.closeModal();
   }
 
 
-  foundMethod(content: string){
-    if(this.commentService.method === 'POST'){
+  foundMethod(content: string) {
+    if (this.commentService.method === 'POST') {
       let localComments = new Array<Comment>();
       const storedComments = localStorage.getItem('comments');
 
-      if (storedComments !== null){
+      if (storedComments !== null) {
         // alert(this.postService.id_post)
         localComments = JSON.parse(storedComments);
         // console.log(localComments);
-        localComments.push({ 
+        localComments.push({
           content: content,
-          id: localComments.length + 1,
-          idPost: Number(this.postService.id_post) ,
+          idComment: localComments.length + 1,
+          idPost: Number(this.postService.id_post),
           idUser: 101
         });
         localStorage.setItem('comments', JSON.stringify(localComments));
         window.location.reload();
+      }
+    }
+    if (this.commentService.method === 'PUT') {
+      let localComments = new Array<Comment>();
+      const storedComments = localStorage.getItem('comments');
+
+      if (storedComments !== null) {
+        const id = this.commentService.id_comment
+        localComments = JSON.parse(storedComments);
+        const itemIndex = localComments.findIndex(function (item) {
+          return item.idComment === Number(id)
+        });
+
+        if (itemIndex !== -1) {
+          localComments[itemIndex] = {
+            idComment: localComments[itemIndex].idComment,
+            idPost: localComments[itemIndex].idPost,
+            idUser: localComments[itemIndex].idUser,
+            content: content || localComments[itemIndex].content
+          }
+          localStorage.setItem('comments', JSON.stringify(localComments));
+          this.postService.id_post = '';
+          window.location.reload();
+        }
       }
     }
   }

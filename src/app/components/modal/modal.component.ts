@@ -52,7 +52,7 @@ export class ModalComponent {
       if (storedPosts) {
         const id = this.postService.id_post
         localPosts = JSON.parse(storedPosts);
-        var itemIndex = localPosts.findIndex(function (item) {
+        const itemIndex = localPosts.findIndex(function (item) {
           return item.id === Number(id)
         });
 

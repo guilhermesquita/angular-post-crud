@@ -11,6 +11,7 @@ export class CommentService {
   constructor() { }
 
   id_post = ''
+  id_comment = ''
 
   private localStorageKey = 'comments';
   private apiUrl = 'http://localhost:3000/comments';
@@ -41,7 +42,7 @@ export class CommentService {
   getCommentByID(id: number): Observable<Comment | null> {
     return new Observable(observer => {
       this.getComments().subscribe(comments => {
-        const comment = comments.find(c => c.id === id);
+        const comment = comments.find(c => c.idComment === id);
         observer.next(comment || null);
         observer.complete();
       }, error => {

@@ -19,7 +19,8 @@
             <button class="text-secondaryWhite" (click)="openCommentModalToCreate()">adicione um <strong>comentário</strong></button>
         </article>
         <section class="border-2 border-[#959090] mt-5 p-5" *ngFor='let comment of this.comments'>
-            <app-comments id_user="{{comment.idUser}}" content="{{comment.content}}"></app-comments>
+            <app-comments id_user="{{comment.idUser}}" content="{{comment.content}}" 
+            id_post="{{comment.idPost}}" id_comment="{{comment.idComment}}"></app-comments>
         </section>
     </section>
 </section>
