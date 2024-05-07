@@ -5,11 +5,12 @@ import { PostService } from '../../service/post-service/post.service';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { ModalService } from '../../service/modal-service/modal.service';
+import { ModalCommentComponent } from '../../components/modal-comment/modal-comment.component';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [PostListComponent, CommonModule, ModalComponent, MainComponent],
+  imports: [PostListComponent, CommonModule, ModalComponent, ModalCommentComponent, MainComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'
 })

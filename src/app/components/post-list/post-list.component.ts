@@ -7,6 +7,7 @@ import { CommentsComponent } from '../comments/comments.component';
 import { CommentService } from '../../service/comment-service/comments.service';
 import { CommonModule } from '@angular/common';
 import { Comment } from '../../models/Comment';
+import { ModalCommentService } from '../../service/modal-comment-service/modal-comment.service';
 
 @Component({
   selector: 'app-post-list',
@@ -17,7 +18,11 @@ import { Comment } from '../../models/Comment';
 })
 
 export class PostListComponent {
-  constructor(public modalService: ModalService, public postService: PostService, private commentService: CommentService) { }
+  constructor(public modalService: ModalService,
+    public postService: PostService,
+    private commentService: CommentService,
+    private modalCommentService: ModalCommentService
+  ) { }
 
   @Input() title: string = "";
   @Input() description: string = "";
@@ -26,17 +31,18 @@ export class PostListComponent {
   comments: Comment[] = [];
 
   ngOnInit(): void {
-    let linkedComment: boolean =  false
+    let linkedComment: boolean = false
     let localComments: string | null
 
     localStorage.getItem('comments') ? linkedComment = true : linkedComment = false
-    if(linkedComment){
+    if (linkedComment) {
       localComments = localStorage.getItem('comments');
       if (localComments) {
         this.comments = JSON.parse(localComments);
         let commentById = this.comments
-        this.comments = commentById.filter(comment => comment.idPost === Number(this.id_post))
-      } 
+        this.postService.id_post = this.id_post;
+        this.comments = commentById.filter(comment => comment.idPost === Number(this.postService.id_post))
+      }
     }
     else {
       this.commentApi();
@@ -49,17 +55,24 @@ export class PostListComponent {
     this.modalService.modalTitle = 'editar post';
   }
 
+  openCommentModalToCreate() {
+    this.commentService.method = 'POST';
+    this.modalCommentService.openModal()
+    this.postService.id_post = this.id_post;
+    this.modalCommentService.modalTitle = 'novo comentário'
+  }
+
   deletePost() {
     let localPosts = new Array<Post>();
     const storedPosts = localStorage.getItem('posts');
     if (storedPosts) {
       this.postService.id_post = this.id_post;
-      const id = this.postService.id_post 
+      const id = this.postService.id_post
       localPosts = JSON.parse(storedPosts);
       const filtered = localPosts.filter(item => item.id !== Number(id));
       localStorage.setItem('posts', JSON.stringify(filtered));
       window.location.reload();
-    }else{
+    } else {
       this.postService.deletePost(Number(this.id_post));
     }
   }

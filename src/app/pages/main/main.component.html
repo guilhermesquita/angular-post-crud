@@ -8,6 +8,7 @@
 
         <section class="w-full flex flex-col gap-20 pb-20" *ngFor='let post of this.posts'>
             <app-modal></app-modal>
+            <app-modal-comment></app-modal-comment>
             <app-post-list title="{{post.title}}" description="{{post.body}}" id_post="{{post.id}}"></app-post-list>
         </section>
 </main>

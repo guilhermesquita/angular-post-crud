@@ -1,0 +1,15 @@
+<div class="bg-[#383737] fixed p-2 h-3/6 left-2/4 w-6/12 top-0 translate-x-[-50%] 
+-translate-y-[-50%] shadow-md rounded-2xl p-5" *ngIf="modalCommentService.modalCommentOpen"> 
+    <!-- *ngIf="modalCommentService"> -->
+    <article class="flex flex-col gap-10">
+        <h2 class="text-grayText text-3xl">{{modalCommentService.modalTitle}}</h2>
+        <form action="" class="flex flex-col gap-10">
+            <textarea name="" #descriptionInput placeholder="escreva seu comentário" class="outline-none border-b-2 border-secondaryWhite bg-transparent text-mainWhite"></textarea>
+            <!-- <input #descriptionInput placeholder="descrição" class="outline-none border-b-2 border-secondaryWhite bg-transparent text-mainWhite"> -->
+        </form>
+        <article class="flex w-full justify-center gap-10">
+            <app-button-confirm (click)="foundMethod(descriptionInput.value)"></app-button-confirm>
+            <app-button-main btn_content="cancelar" (click)="closeCommentModal()"></app-button-main>
+        </article>
+    </article>
+</div>

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import axios from 'axios';
 import { Observable } from 'rxjs';
 import { Comment } from '../../models/Comment';
@@ -7,6 +7,7 @@ import { Comment } from '../../models/Comment';
   providedIn: 'root'
 })
 export class CommentService {
+  @Input() method: string = '';
   constructor() { }
 
   id_post = ''
