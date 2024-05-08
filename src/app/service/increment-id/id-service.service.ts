@@ -9,7 +9,7 @@ export class LocalStorageService {
   constructor() { }
 
   getUniqueId(): number {
-    const id = parseInt(localStorage.getItem(this.storageKey) ?? '0', 10);
+    const id = parseInt(localStorage.getItem(this.storageKey) ?? '2', 10);
     return id;
   }
 
